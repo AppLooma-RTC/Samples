@@ -1,0 +1,13 @@
+{
+  "name": "applooma-samples-token-server",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Issues AppLooma RTC tokens for the sample apps. Your API secret stays here, never in an app.",
+  "main": "index.js",
+  "scripts": { "start": "node index.js" },
+  "dependencies": {
+    "@applooma/server-sdk": "^0.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.0"
+  }
+}

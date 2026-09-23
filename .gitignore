@@ -1,0 +1,15 @@
+node_modules/
+dist/
+build/
+.gradle/
+local.properties
+.env
+.env.local
+.dart_tool/
+pubspec_overrides.yaml
+*.apk
+*.iml
+.idea/
+ios/Pods/
+Pods/
+.DS_Store

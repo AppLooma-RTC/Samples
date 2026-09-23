@@ -1,0 +1,22 @@
+name: applooma_samples
+description: AppLooma RTC sample — live streaming, voice room, 1-to-1 voice and video calls.
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  applooma_rtc: ^0.3.1
+  http: ^1.6.0
+  permission_handler: ^11.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
