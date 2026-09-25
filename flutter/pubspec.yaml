@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  applooma_uikit: ^0.1.0
+  applooma_uikit: ^0.1.1
   http: ^1.6.0
 
 dev_dependencies:

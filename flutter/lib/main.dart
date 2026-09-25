@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 _card('Live Streaming', 'Go live · watch · chat · gifts', Icons.sensors, const [Color(0xFFFF3B5C), Color(0xFFFF4FA3), Color(0xFF7C5CFF)],
                     () => _open((k, r) => AppLoomaLiveStream(kit: k, room: r), 'live')),
                 _card('Voice Room', '8 seats · speaking rings', Icons.graphic_eq, const [Color(0xFF7C5CFF), Color(0xFF4B3CC9), Color(0xFF1F1A4D)],
-                    () => _open((k, r) => AppLoomaVoiceRoom(kit: k, room: r), 'voice')),
+                    () => _open((k, r) => AppLoomaVoiceRoom(kit: k, room: r, seats: 8), 'voice')),
                 _card('Voice Call', '1-to-1 · HD audio', Icons.call, const [Color(0xFF13B58A), Color(0xFF0E6F78), Color(0xFF0C2A3A)],
                     () => _open((k, r) => AppLoomaCall(kit: k, room: r, video: false), 'acall')),
                 _card('Video Call', '1-to-1 · 1080p', Icons.videocam, const [Color(0xFFFF9A3C), Color(0xFFFF4F7A), Color(0xFF5A1D52)],
