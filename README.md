@@ -1,6 +1,8 @@
 # AppLooma RTC — Sample Apps
 
-Four ready-to-run apps, one per platform, each with the same four screens:
+Four ready-to-run apps, one per platform, each with the same four screens. Every
+screen is a component from the **AppLooma UIKit** — the only code each app writes is
+a home screen, a token provider that calls its own server, and which room to open.
 
 | Screen | What it shows |
 |---|---|
@@ -11,10 +13,10 @@ Four ready-to-run apps, one per platform, each with the same four screens:
 
 | Folder | Platform | SDK |
 |---|---|---|
-| [`web`](web) | Browser (Vite + TypeScript) | `@applooma/rtc-web` |
-| [`flutter`](flutter) | Android + iOS | `applooma_rtc` |
-| [`react-native`](react-native) | Android + iOS | `@applooma/rtc-react-native` |
-| [`android-kotlin`](android-kotlin) | Android (Jetpack Compose) | `com.applooma:rtc-android` |
+| [`web`](web) | Browser (Vite + React) | `@applooma/uikit-react` |
+| [`flutter`](flutter) | Android + iOS | `applooma_uikit` |
+| [`react-native`](react-native) | Android + iOS | `@applooma/uikit-react-native` |
+| [`android-kotlin`](android-kotlin) | Android (Jetpack Compose) | `com.applooma:uikit-android` |
 | [`token-server`](token-server) | Node.js | `@applooma/server-sdk` |
 
 ## 1. Start the token server
@@ -66,6 +68,11 @@ your computer's LAN address, e.g. `http://192.168.1.20:3001/token`.
 
 Type the same **room / call code** on two devices (or two browser tabs) and pick the
 same screen. In Live Streaming one side chooses *Go live* and the other *Watch*.
+
+## Want the raw SDK instead?
+
+The UIKit screens are open source and built on the SDKs. For a fully custom UI, use
+the SDK directly — see [docs.applooma.dev](https://docs.applooma.dev).
 
 ## How the pieces talk
 

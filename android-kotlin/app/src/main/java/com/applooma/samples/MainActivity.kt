@@ -41,6 +41,12 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.applooma.samples.ui.*
+import com.applooma.uikit.AppLoomaCall
+import com.applooma.uikit.AppLoomaKit
+import com.applooma.uikit.AppLoomaLiveStream
+import com.applooma.uikit.AppLoomaVoiceRoom
+import com.applooma.uikit.KitToken
+import com.applooma.uikit.KitUser
 
 sealed interface Route {
     data object Home : Route
@@ -58,11 +64,16 @@ class MainActivity : ComponentActivity() {
                 var route by remember { mutableStateOf<Route>(Route.Home) }
                 val home = { route = Route.Home }
                 BackHandler(enabled = route != Route.Home, onBack = home)
+                // Every screen is one composable from the UIKit; the kit carries
+                // App ID, user and a token provider that calls YOUR server.
+                val kit = remember { AppLoomaKit(BuildConfig.APP_ID, KitUser(Me.id, Me.name)) { room, role, user ->
+                    val t = fetchToken(room, role); KitToken(t.token, t.wsUrl)
+                } }
                 when (val r = route) {
                     Route.Home -> HomeScreen { route = it }
-                    is Route.Live -> LiveScreen(r.room, home)
-                    is Route.Voice -> VoiceScreen(r.room, home)
-                    is Route.Call -> CallScreen(r.room, r.video, home)
+                    is Route.Live -> AppLoomaLiveStream(kit, r.room, onLeave = home)
+                    is Route.Voice -> AppLoomaVoiceRoom(kit, r.room, seats = 8, onLeave = home)
+                    is Route.Call -> AppLoomaCall(kit, r.room, video = r.video, onLeave = home)
                 }
             }
         }
@@ -92,7 +103,7 @@ fun HomeScreen(open: (Route) -> Unit) {
                 }
                 Column(Modifier.padding(start = 12.dp)) {
                     Text("AppLooma RTC", color = C.text, fontSize = 19.sp, fontWeight = FontWeight.ExtraBold)
-                    Text("Sample app · Kotlin", color = C.muted, fontSize = 12.5.sp)
+                    Text("Sample app · Kotlin · built on the UIKit", color = C.muted, fontSize = 12.5.sp)
                 }
             }
             Text(

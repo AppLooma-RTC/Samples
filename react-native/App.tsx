@@ -3,10 +3,8 @@ import { ScrollView, StatusBar, StyleSheet, Text, TextInput, Pressable, View } f
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import { Radio, AudioLines, Phone, Video } from 'lucide-react-native';
-import { APP_ID, BRAND, C, Me, cleanRoom, type IconType } from './src/common';
-import LiveScreen from './src/screens/Live';
-import VoiceScreen from './src/screens/Voice';
-import CallScreen from './src/screens/Call';
+import { LiveStream, VoiceRoom, Call } from '@applooma/uikit-react-native';
+import { APP_ID, BRAND, C, Me, cleanRoom, kit, type IconType } from './src/common';
 
 type Route = { kind: 'home' } | { kind: 'live' | 'voice'; room: string } | { kind: 'call'; room: string; video: boolean };
 
@@ -17,9 +15,10 @@ export default function App() {
     <SafeAreaProvider>
       <StatusBar barStyle="light-content" backgroundColor={C.ink} />
       {route.kind === 'home' && <Home open={setRoute} />}
-      {route.kind === 'live' && <LiveScreen room={route.room} onClose={back} />}
-      {route.kind === 'voice' && <VoiceScreen room={route.room} onClose={back} />}
-      {route.kind === 'call' && <CallScreen room={route.room} video={route.video} onClose={back} />}
+      {/* Every screen is one component from the UIKit. */}
+      {route.kind === 'live' && <LiveStream {...kit} room={route.room} onLeave={back} />}
+      {route.kind === 'voice' && <VoiceRoom {...kit} room={route.room} seats={8} onLeave={back} />}
+      {route.kind === 'call' && <Call {...kit} room={route.room} video={route.video} onLeave={back} />}
     </SafeAreaProvider>
   );
 }
@@ -37,7 +36,7 @@ function Home({ open }: { open: (r: Route) => void }) {
           <LinearGradient colors={BRAND} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={h.logo}><Text style={{ color: '#fff', fontWeight: '800', fontSize: 20 }}>A</Text></LinearGradient>
           <View style={{ marginLeft: 12 }}>
             <Text style={{ color: C.text, fontSize: 19, fontWeight: '800' }}>AppLooma RTC</Text>
-            <Text style={{ color: C.muted, fontSize: 12.5 }}>Sample app · React Native</Text>
+            <Text style={{ color: C.muted, fontSize: 12.5 }}>Sample app · React Native · built on the UIKit</Text>
           </View>
         </View>
         <Text style={h.hero}>Real-time,{'\n'}<Text style={{ color: C.pink }}>beautifully</Text> simple.</Text>

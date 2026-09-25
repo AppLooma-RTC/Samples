@@ -2,7 +2,7 @@
 # See https://dart.dev/tools/pub/glossary#lockfile
 packages:
   applooma_rtc:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "../../sdks/flutter"
       relative: true
@@ -16,6 +16,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.12.0"
+  applooma_uikit:
+    dependency: "direct main"
+    description:
+      path: "../../uikits/flutter"
+      relative: true
+    source: path
+    version: "0.1.0"
   args:
     dependency: transitive
     description:
@@ -440,7 +447,7 @@ packages:
     source: hosted
     version: "2.3.0"
   permission_handler:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: permission_handler
       sha256: "59adad729136f01ea9e35a48f5d1395e25cba6cea552249ddbe9cf950f5d7849"

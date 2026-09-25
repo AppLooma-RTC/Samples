@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'common.dart';
-import 'screens/call.dart';
-import 'screens/live.dart';
-import 'screens/voice.dart';
+import 'package:applooma_uikit/applooma_uikit.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,10 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
   final _name = TextEditingController(text: Me.name);
   final _room = TextEditingController(text: 'demo');
 
-  void _open(Widget Function(String room) screen, String prefix) {
+  void _open(Widget Function(AppLoomaKit kit, String room) screen, String prefix) {
     Me.name = _name.text.trim().isEmpty ? Me.name : _name.text.trim();
     final room = '$prefix-${cleanRoom(_room.text)}';
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => screen(room)));
+    // Every screen is one widget from the UIKit; the kit carries App ID, user and token provider.
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) => screen(buildKit(), room)));
   }
 
   @override
@@ -55,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(width: 12),
               const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text('AppLooma RTC', style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800)),
-                Text('Sample app · Flutter', style: TextStyle(fontSize: 12.5, color: C.muted)),
+                Text('Sample app · Flutter · built on the UIKit', style: TextStyle(fontSize: 12.5, color: C.muted)),
               ]),
             ]),
             const SizedBox(height: 22),
@@ -66,8 +65,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             if (appId == 'YOUR_APP_ID') ...[
               const SizedBox(height: 14),
-              const Glass(radius: 14, padding: EdgeInsets.all(12),
-                  child: Text('Run with --dart-define=APP_ID=… and TOKEN_URL=… — see README.', style: TextStyle(fontSize: 13))),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(color: C.glass, borderRadius: BorderRadius.circular(14), border: Border.all(color: C.line)),
+                child: const Text('Run with --dart-define=APP_ID=… and TOKEN_URL=… — see README.', style: TextStyle(fontSize: 13)),
+              ),
             ],
             const SizedBox(height: 22),
             Row(children: [
@@ -81,13 +83,13 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisSpacing: 12, crossAxisSpacing: 12, childAspectRatio: 0.98,
               children: [
                 _card('Live Streaming', 'Go live · watch · chat · gifts', Icons.sensors, const [Color(0xFFFF3B5C), Color(0xFFFF4FA3), Color(0xFF7C5CFF)],
-                    () => _open((r) => LiveScreen(room: r), 'live')),
+                    () => _open((k, r) => AppLoomaLiveStream(kit: k, room: r), 'live')),
                 _card('Voice Room', '8 seats · speaking rings', Icons.graphic_eq, const [Color(0xFF7C5CFF), Color(0xFF4B3CC9), Color(0xFF1F1A4D)],
-                    () => _open((r) => VoiceRoomScreen(room: r), 'voice')),
+                    () => _open((k, r) => AppLoomaVoiceRoom(kit: k, room: r), 'voice')),
                 _card('Voice Call', '1-to-1 · HD audio', Icons.call, const [Color(0xFF13B58A), Color(0xFF0E6F78), Color(0xFF0C2A3A)],
-                    () => _open((r) => CallScreen(room: r, video: false), 'acall')),
+                    () => _open((k, r) => AppLoomaCall(kit: k, room: r, video: false), 'acall')),
                 _card('Video Call', '1-to-1 · 1080p', Icons.videocam, const [Color(0xFFFF9A3C), Color(0xFFFF4F7A), Color(0xFF5A1D52)],
-                    () => _open((r) => CallScreen(room: r, video: true), 'vcall')),
+                    () => _open((k, r) => AppLoomaCall(kit: k, room: r, video: true), 'vcall')),
               ],
             ),
             const SizedBox(height: 16),

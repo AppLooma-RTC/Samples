@@ -57,7 +57,6 @@ suspend fun fetchToken(room: String, role: String): Token = withContext(Dispatch
 }
 
 fun cleanRoom(s: String) = s.trim().replace(Regex("[^a-zA-Z0-9_-]"), "-").take(40).ifEmpty { "lobby" }
-fun formatTime(sec: Long) = "%02d:%02d".format(sec / 60, sec % 60)
 
 // ------------------------------------------------------------------ design system
 
@@ -86,67 +85,4 @@ fun gradientFor(key: String): Brush {
     for (c in key) h = (h * 31 + c.code) and 0x7fffffff
     val (a, b) = gradients[h % gradients.size]
     return Brush.linearGradient(listOf(Color(a), Color(b)))
-}
-
-@Composable
-fun Avatar(id: String, name: String, size: Dp = 36.dp) {
-    Box(
-        Modifier.size(size).clip(CircleShape).background(gradientFor(id)).border(1.5.dp, Color.White.copy(alpha = 0.18f), CircleShape),
-        contentAlignment = Alignment.Center,
-    ) { Text(name.trim().firstOrNull()?.uppercase() ?: "?", color = Color.White, fontWeight = FontWeight.ExtraBold, fontSize = (size.value * 0.4f).sp) }
-}
-
-@Composable
-fun Glass(modifier: Modifier = Modifier, padding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 6.dp), content: @Composable RowScope.() -> Unit) {
-    Row(
-        modifier.clip(RoundedCornerShape(999.dp)).background(Color.Black.copy(alpha = 0.38f)).border(1.dp, C.line, RoundedCornerShape(999.dp)).padding(padding),
-        verticalAlignment = Alignment.CenterVertically, content = content,
-    )
-}
-
-/** Round control: soft glass, white when "off", red for end, gradient for brand. */
-@Composable
-fun RoundBtn(
-    icon: ImageVector, onClick: () -> Unit, size: Dp = 50.dp, off: Boolean = false, danger: Boolean = false,
-    brand: Boolean = false, tint: Color = Color.White, bg: Color = C.glass2, label: String? = null,
-) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        val base = Modifier.size(size)
-            .then(if (danger) Modifier.shadow(16.dp, CircleShape, ambientColor = C.live, spotColor = C.live) else Modifier)
-            .clip(CircleShape)
-        val painted = when {
-            off -> base.background(Color.White)
-            danger -> base.background(C.live)
-            brand -> base.background(C.brand)
-            else -> base.background(bg)
-        }
-        Box(painted.clickable(onClick = onClick), contentAlignment = Alignment.Center) {
-            Icon(icon, null, tint = if (off) Color(0xFF111111) else tint, modifier = Modifier.size(size * 0.44f))
-        }
-        if (label != null) Text(label, color = Color(0xFFCFCFE0), fontSize = 11.5.sp, modifier = Modifier.padding(top = 7.dp))
-    }
-}
-
-data class ChatLine(val who: String, val text: String, val system: Boolean = false, val gift: Boolean = false)
-
-@Composable
-fun ChatBubble(l: ChatLine) {
-    val shape = RoundedCornerShape(14.dp)
-    val bg = if (l.gift) Modifier.background(Brush.horizontalGradient(listOf(C.gold.copy(alpha = 0.35f), C.pink.copy(alpha = 0.25f))), shape)
-    else Modifier.background(Color.Black.copy(alpha = 0.35f), shape)
-    Text(
-        buildAnnotatedString {
-            if (l.who.isNotEmpty()) withStyle(SpanStyle(color = C.gold, fontWeight = FontWeight.Bold)) { append(l.who + "  ") }
-            withStyle(SpanStyle(color = if (l.system) C.muted else C.text)) { append(l.text) }
-        },
-        fontSize = 13.sp, lineHeight = 18.sp,
-        modifier = Modifier.padding(bottom = 6.dp).then(bg).padding(horizontal = 12.dp, vertical = 7.dp),
-    )
-}
-
-/** A top/bottom shade over video so white text stays readable. */
-@Composable
-fun Shade(top: Boolean, height: Dp, modifier: Modifier = Modifier) {
-    val colors = if (top) listOf(Color.Black.copy(alpha = 0.55f), Color.Transparent) else listOf(Color.Transparent, Color.Black.copy(alpha = 0.75f))
-    Box(modifier.fillMaxWidth().height(height).background(Brush.verticalGradient(colors)))
 }
