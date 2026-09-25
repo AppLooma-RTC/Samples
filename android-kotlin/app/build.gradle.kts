@@ -31,7 +31,7 @@ android {
 
 dependencies {
     // The UIKit brings the SDK with it.
-    implementation("com.applooma:uikit-android:0.1.0")
+    implementation("com.applooma:uikit-android:0.2.1")
     implementation(platform("androidx.compose:compose-bom:2024.09.03"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.foundation:foundation")
