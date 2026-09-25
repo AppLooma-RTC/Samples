@@ -1,0 +1,10 @@
+<resources>
+    <style name="Theme.Samples" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/ink</item>
+        <item name="android:statusBarColor">@color/ink</item>
+        <item name="android:navigationBarColor">@color/ink</item>
+        <item name="colorPrimary">@color/violet</item>
+        <item name="colorSecondary">@color/pink</item>
+        <item name="android:textColorPrimary">@color/text</item>
+    </style>
+</resources>

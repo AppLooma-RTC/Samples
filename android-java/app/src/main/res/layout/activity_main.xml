@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/ink" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="20dp">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+            <TextView android:layout_width="42dp" android:layout_height="42dp" android:gravity="center" android:text="A"
+                android:textColor="#FFFFFF" android:textSize="20sp" android:textStyle="bold" android:background="@drawable/bg_logo" />
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="AppLooma RTC" android:textColor="@color/text" android:textSize="19sp" android:textStyle="bold" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sample app · Java · built on the UIKit" android:textColor="@color/muted" android:textSize="12.5sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="22dp"
+            android:text="Real-time,\nbeautifully simple." android:textColor="@color/text" android:textSize="30sp" android:textStyle="bold" android:lineSpacingMultiplier="1.05" />
+
+        <TextView android:id="@+id/note" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:padding="12dp"
+            android:background="@drawable/bg_card" android:textColor="@color/text" android:textSize="13sp" android:visibility="gone"
+            android:text="Build with -PappId=… and -PtokenUrl=… — see README." />
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="22dp">
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="YOUR NAME" android:textColor="@color/muted" android:textSize="11.5sp" android:textStyle="bold" />
+                <EditText android:id="@+id/name" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginTop="6dp" android:paddingHorizontal="16dp"
+                    android:background="@drawable/bg_field" android:textColor="@color/text" android:textSize="15sp" android:maxLength="24" android:inputType="textPersonName" android:importantForAutofill="no" />
+            </LinearLayout>
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ROOM / CALL CODE" android:textColor="@color/muted" android:textSize="11.5sp" android:textStyle="bold" />
+                <EditText android:id="@+id/room" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginTop="6dp" android:paddingHorizontal="16dp"
+                    android:background="@drawable/bg_field" android:textColor="@color/text" android:textSize="15sp" android:maxLength="40" android:text="demo" android:inputType="text" android:importantForAutofill="no" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="18dp">
+            <include android:id="@+id/cardLive" layout="@layout/card" android:layout_width="0dp" android:layout_weight="1" android:layout_height="170dp" />
+            <include android:id="@+id/cardVoice" layout="@layout/card" android:layout_width="0dp" android:layout_weight="1" android:layout_height="170dp" android:layout_marginStart="12dp" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="12dp">
+            <include android:id="@+id/cardAudio" layout="@layout/card" android:layout_width="0dp" android:layout_weight="1" android:layout_height="170dp" />
+            <include android:id="@+id/cardVideo" layout="@layout/card" android:layout_width="0dp" android:layout_weight="1" android:layout_height="170dp" android:layout_marginStart="12dp" />
+        </LinearLayout>
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:gravity="center"
+            android:text="Open the same room on a second device to talk to yourself." android:textColor="@color/muted" android:textSize="11.5sp" />
+    </LinearLayout>
+</ScrollView>

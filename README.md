@@ -17,6 +17,7 @@ a home screen, a token provider that calls its own server, and which room to ope
 | [`flutter`](flutter) | Android + iOS | `applooma_uikit` |
 | [`react-native`](react-native) | Android + iOS | `@applooma/uikit-react-native` |
 | [`android-kotlin`](android-kotlin) | Android (Jetpack Compose) | `com.applooma:uikit-android` |
+| [`android-java`](android-java) | Android (Java + XML) | `com.applooma:uikit-android` — Activities, no Compose code |
 | [`token-server`](token-server) | Node.js | `@applooma/server-sdk` |
 
 ## 1. Start the token server
@@ -58,6 +59,13 @@ npm run android        # or: cd ios && pod install && cd .. && npm run ios
 
 ```bash
 cd android-kotlin
+./gradlew installDebug -PappId=YOUR_APP_ID -PtokenUrl=http://10.0.2.2:3001/token
+```
+
+**Android (Java)** — the same screens opened from plain Java with `AppLoomaUiKit.openLiveStream(...)`:
+
+```bash
+cd android-java
 ./gradlew installDebug -PappId=YOUR_APP_ID -PtokenUrl=http://10.0.2.2:3001/token
 ```
 

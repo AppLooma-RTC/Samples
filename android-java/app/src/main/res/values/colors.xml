@@ -1,0 +1,11 @@
+<resources>
+    <color name="ink">#07070D</color>
+    <color name="glass">#12FFFFFF</color>
+    <color name="line">#17FFFFFF</color>
+    <color name="text">#F5F5FA</color>
+    <color name="muted">#9A9AB0</color>
+    <color name="violet">#7C5CFF</color>
+    <color name="pink">#FF4FA3</color>
+    <color name="live">#FF3B5C</color>
+    <color name="green">#2EE59D</color>
+</resources>
