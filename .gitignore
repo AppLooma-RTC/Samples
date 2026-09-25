@@ -13,3 +13,4 @@ pubspec_overrides.yaml
 ios/Pods/
 Pods/
 .DS_Store
+.vite/
