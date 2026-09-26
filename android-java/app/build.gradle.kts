@@ -30,7 +30,7 @@ android {
 
 dependencies {
     // The UIKit brings the SDK and the Compose screens with it; this app stays pure Java + XML.
-    implementation("com.applooma:uikit-android:0.2.2")
+    implementation("com.applooma:uikit-android:0.2.3")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
 }
