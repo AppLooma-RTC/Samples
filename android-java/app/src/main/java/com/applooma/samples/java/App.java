@@ -32,6 +32,9 @@ public class App extends Application {
 
     /** Called again after the user edits their name on the home screen. */
     public static void configure() {
+        // Debug builds mirror the engine's log into Logcat (tag AppLooma) so a
+        // "black video" or "no audio" report can be read with adb logcat.
+        if (BuildConfig.DEBUG) com.applooma.rtc.AppEngine.enableDebugLogging(line -> { android.util.Log.d("AppLooma", line); return kotlin.Unit.INSTANCE; });
         AppLoomaUiKit.setup(new AppLoomaKit(BuildConfig.APP_ID, new KitUser(USER_ID, userName, null), (room, role, user) -> {
             HttpURLConnection conn = (HttpURLConnection) new URL(BuildConfig.TOKEN_URL).openConnection();
             conn.setRequestMethod("POST");
