@@ -86,12 +86,20 @@ fun HomeScreen(open: (Route) -> Unit) {
     var room by remember { mutableStateOf("demo") }
     var pending by remember { mutableStateOf<Route?>(null) }
     val permissions = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { granted ->
-        if (granted.values.all { it }) pending?.let(open)
+        // BLUETOOTH_CONNECT (Android 12+) is asked for so earbuds work, but a
+        // refusal does not stop the join — only mic/camera are required.
+        val required = granted.filterKeys { it != Manifest.permission.BLUETOOTH_CONNECT }
+        if (required.values.all { it }) pending?.let(open)
     }
     fun go(r: Route, camera: Boolean) {
         if (name.isNotBlank()) Me.name = name.trim()
         pending = r
-        permissions.launch(if (camera) arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA) else arrayOf(Manifest.permission.RECORD_AUDIO))
+        val wanted = buildList {
+            add(Manifest.permission.RECORD_AUDIO)
+            if (camera) add(Manifest.permission.CAMERA)
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) add(Manifest.permission.BLUETOOTH_CONNECT)
+        }
+        permissions.launch(wanted.toTypedArray())
     }
     val code = cleanRoom(room)
 

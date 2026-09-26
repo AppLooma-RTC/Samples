@@ -26,8 +26,11 @@ public class MainActivity extends AppCompatActivity {
 
     private final ActivityResultLauncher<String[]> permissions =
             registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), (Map<String, Boolean> granted) -> {
+                // BLUETOOTH_CONNECT (Android 12+) is asked for so earbuds
+                // work; refusing it does not stop the join.
                 boolean all = true;
-                for (Boolean g : granted.values()) all &= g;
+                for (Map.Entry<String, Boolean> e : granted.entrySet())
+                    if (!Manifest.permission.BLUETOOTH_CONNECT.equals(e.getKey())) all &= e.getValue();
                 if (all && pending != null) pending.run();
             });
 
@@ -58,12 +61,13 @@ public class MainActivity extends AppCompatActivity {
             if (!name.isEmpty()) { App.userName = name; App.configure(); }
             // The UIKit screens ask for permission themselves too; asking here
             // first keeps the first join from waiting on a dialog.
-            String[] wanted = camera
-                    ? new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA}
-                    : new String[]{Manifest.permission.RECORD_AUDIO};
+            java.util.List<String> wanted = new java.util.ArrayList<>();
+            wanted.add(Manifest.permission.RECORD_AUDIO);
+            if (camera) wanted.add(Manifest.permission.CAMERA);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) wanted.add(Manifest.permission.BLUETOOTH_CONNECT);
             boolean have = true;
             for (String p : wanted) have &= ContextCompat.checkSelfPermission(this, p) == PackageManager.PERMISSION_GRANTED;
-            if (have) open.run(); else { pending = open; permissions.launch(wanted); }
+            if (have) open.run(); else { pending = open; permissions.launch(wanted.toArray(new String[0])); }
         });
     }
 
