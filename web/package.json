@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@applooma/rtc-web": "^0.4.1",
+    "@applooma/rtc-web": "^0.4.3",
     "@applooma/uikit-react": "^0.1.0",
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",

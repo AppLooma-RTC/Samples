@@ -11,14 +11,14 @@ a home screen, a token provider that calls its own server, and which room to ope
 | **Voice Call** | 1-to-1 audio with a pulsing avatar, call timer, mute and end |
 | **Video Call** | 1-to-1 video, full-screen remote picture, draggable self-view, mute, camera, flip and end |
 
-| Folder | Platform | SDK |
-|---|---|---|
-| [`web`](web) | Browser (Vite + React) | `@applooma/uikit-react` |
-| [`flutter`](flutter) | Android + iOS | `applooma_uikit` |
-| [`react-native`](react-native) | Android + iOS | `@applooma/uikit-react-native` |
-| [`android-kotlin`](android-kotlin) | Android (Jetpack Compose) | `com.applooma:uikit-android` |
-| [`android-java`](android-java) | Android (Java + XML) | `com.applooma:uikit-android` — Activities, no Compose code |
-| [`token-server`](token-server) | Node.js | `@applooma/server-sdk` |
+| Folder | Platform | SDK | Version |
+|---|---|---|---|
+| [`web`](web) | Browser (Vite + React) | `@applooma/uikit-react` | 0.1.0 (on `@applooma/rtc-web` 0.4.3) |
+| [`flutter`](flutter) | Android + iOS | `applooma_uikit` | 0.1.2 (on `applooma_rtc` 0.3.3) |
+| [`react-native`](react-native) | Android + iOS | `@applooma/uikit-react-native` | 0.1.1 (on `@applooma/rtc-react-native` 0.5.3) |
+| [`android-kotlin`](android-kotlin) | Android (Jetpack Compose) | `com.applooma:uikit-android` | 0.2.4 (on `com.applooma:rtc-android` 0.4.10) |
+| [`android-java`](android-java) | Android (Java + XML) | `com.applooma:uikit-android` — Activities, no Compose code | 0.2.4 |
+| [`token-server`](token-server) | Node.js | `@applooma/server-sdk` | — |
 
 ## 1. Start the token server
 
@@ -71,6 +71,9 @@ cd android-java
 
 `10.0.2.2` is your computer as seen from the Android emulator. On a real phone use
 your computer's LAN address, e.g. `http://192.168.1.20:3001/token`.
+
+On Android 12 and above the kit screens also ask for `BLUETOOTH_CONNECT` so Bluetooth
+headsets work; refusing it does not block the join.
 
 ## 3. Try it with two devices
 

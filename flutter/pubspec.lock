@@ -7,7 +7,7 @@ packages:
       path: "../../sdks/flutter"
       relative: true
     source: path
-    version: "0.3.1"
+    version: "0.3.3"
   applooma_rtc_core:
     dependency: transitive
     description:
@@ -22,7 +22,7 @@ packages:
       path: "../../uikits/flutter"
       relative: true
     source: path
-    version: "0.1.0"
+    version: "0.1.2"
   args:
     dependency: transitive
     description:
